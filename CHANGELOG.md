@@ -1,5 +1,13 @@
 # Changelog
 
+## Sin publicar
+
+- Web local: `http://localhost` se usa como `http://127.0.0.1`. En Windows `localhost` resuelve antes a IPv6 y las webs
+  de desarrollo (Vite) solo escuchan en IPv4, así que la consulta de skins fallaba con `ConnectException`.
+
+- Forge 1.21.1: los mixins también apuntan a los nombres SRG de los métodos (`m_295900_`…). En el Forge real el juego
+  usa esos nombres, así que los hooks no se aplicaban y no se veía la skin ni la capa de Takumi.
+
 ## 0.1.0
 
 - Primera versión: skins, capas y modelo de brazos de Takumi en Minecraft 1.21.1, 26.1.2, 26.2 y 26.3, para Fabric,

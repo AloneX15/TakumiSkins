@@ -37,12 +37,12 @@ public abstract class SkinManagerMixin implements TakumiSkinsHooked {
         cir.setReturnValue(SkinOverlay.wrapFuture(profile, cir.getReturnValue()));
     }
     //?} else {
-    /*@Inject(method = "lookupInsecure", at = @At("RETURN"), cancellable = true, require = 0)
+    /*@Inject(method = {"lookupInsecure", "m_293884_"}, at = @At("RETURN"), cancellable = true, require = 0)
     private void takumi_skins$wrapLookup(GameProfile profile, CallbackInfoReturnable<Supplier<PlayerSkin>> cir) {
         cir.setReturnValue(SkinOverlay.wrap(profile, cir.getReturnValue()));
     }
 
-    @Inject(method = "getInsecureSkin", at = @At("RETURN"), cancellable = true, require = 0)
+    @Inject(method = {"getInsecureSkin", "m_293307_"}, at = @At("RETURN"), cancellable = true, require = 0)
     private void takumi_skins$wrapSkin(GameProfile profile, CallbackInfoReturnable<PlayerSkin> cir) {
         cir.setReturnValue(SkinOverlay.apply(profile, cir.getReturnValue()));
     }

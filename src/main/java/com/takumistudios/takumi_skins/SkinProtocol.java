@@ -78,6 +78,8 @@ public final class SkinProtocol {
         while (url.endsWith("/")) {
             url = url.substring(0, url.length() - 1);
         }
+        // "localhost" can resolve to ::1 first, while local dev servers (Vite) usually listen only on IPv4.
+        url = url.replaceFirst("(?i)^(http://)localhost(?=[:/]|$)", "$1127.0.0.1");
         return Optional.of(new Settings(url, token.trim()));
     }
 

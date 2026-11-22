@@ -21,7 +21,7 @@ import net.minecraft.world.entity.player.PlayerSkin;
  */
 @Mixin(PlayerInfo.class)
 public abstract class PlayerInfoMixin {
-    @Inject(method = "createSkinLookup", at = @At("RETURN"), cancellable = true, require = 0)
+    @Inject(method = {"createSkinLookup", "m_295900_"}, at = @At("RETURN"), cancellable = true, require = 0)
     private static void takumi_skins$wrapLookup(GameProfile profile, CallbackInfoReturnable<Supplier<PlayerSkin>> cir) {
         cir.setReturnValue(SkinOverlay.wrap(profile, cir.getReturnValue()));
     }

@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
  */
 @Mixin(ClientPacketListener.class)
 public abstract class ClientPacketListenerMixin {
-    @Inject(method = "sendCommand", at = @At("HEAD"), cancellable = true, require = 0)
+    @Inject(method = {"sendCommand", "m_246623_"}, at = @At("HEAD"), cancellable = true, require = 0)
     private void takumi_skins$command(String command, CallbackInfo ci) {
         if (SkinCommands.handle(command)) {
             ci.cancel();

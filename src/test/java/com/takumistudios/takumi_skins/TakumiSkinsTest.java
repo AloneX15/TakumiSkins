@@ -52,7 +52,7 @@ class TakumiSkinsTest {
         assertFalse(defaults.toString().contains(TOKEN), "the token must never be logged");
 
         Map<String, String> local = env(SkinProtocol.TOKEN_ENV, TOKEN, SkinProtocol.WEB_URL_ENV, "http://localhost:5173//");
-        assertEquals("http://localhost:5173", SkinProtocol.settings(local::get, none::get).orElseThrow().baseUrl());
+        assertEquals("http://127.0.0.1:5173", SkinProtocol.settings(local::get, none::get).orElseThrow().baseUrl());
 
         Map<String, String> insecure = env(SkinProtocol.TOKEN_ENV, TOKEN, SkinProtocol.WEB_URL_ENV, "http://evil.example");
         assertTrue(SkinProtocol.settings(insecure::get, none::get).isEmpty());
