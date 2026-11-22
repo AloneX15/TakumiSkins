@@ -97,7 +97,10 @@ jobs:
       - uses: actions/setup-java@v6
         with:
           distribution: temurin
+          # 8: ForgeGradle lo usa para preparar Minecraft (lo busca en JAVA_HOME_8_X64); si tiene que descargarlo, a veces
+          # falla. El último de la lista (25) queda como JAVA_HOME.
           java-version: |
+            8
             21
             25
       - uses: gradle/actions/setup-gradle@v6
