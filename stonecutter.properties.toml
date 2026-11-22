@@ -3,7 +3,7 @@
 mod.id = "takumi_skins"
 mod.name = "Takumi Skins"
 mod.group = "com.takumistudios.takumi_skins"
-mod.version = "0.1.0"
+mod.version = "0.1.1"
 
 deps.fabric_loader = "0.20.1"
 # mod.min_loader y mod.min_fabric_api (por versión) son lo mínimo que exige el jar: el Loader que pide su Fabric API y

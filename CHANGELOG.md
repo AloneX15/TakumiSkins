@@ -1,6 +1,6 @@
 # Changelog
 
-## Sin publicar
+## 0.1.1
 
 - Web local: `http://localhost` se usa como `http://127.0.0.1`. En Windows `localhost` resuelve antes a IPv6 y las webs
   de desarrollo (Vite) solo escuchan en IPv4, así que la consulta de skins fallaba con `ConnectException`.
