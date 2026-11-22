@@ -1,0 +1,21 @@
+modLoader="javafml"
+loaderVersion="[1,)"
+license="MIT"
+issueTrackerURL="https://github.com/AloneX15/TakumiSkins/issues"
+[[mods]]
+modId="takumi_skins"
+version="${version}"
+displayName="Takumi Skins"
+authors="TakumiStudios"
+logoFile="assets/takumi_skins/icon.png"
+description="Shows the skins and capes Takumi Launcher players choose on the Takumi website or launcher, in any world or server. Only active when the game is started from Takumi Launcher. Creado por TakumiStudios."
+# Client-only: servers do not need it and their list entry does not show a mismatch.
+displayTest="IGNORE_ALL_VERSION"
+[[dependencies.takumi_skins]]
+modId="minecraft"
+type="required"
+versionRange="[${minecraft}]"
+ordering="NONE"
+side="CLIENT"
+[[mixins]]
+config="takumi_skins.native.mixins.json"

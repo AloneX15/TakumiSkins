@@ -1,0 +1,5 @@
+{
+  "modmenu.descriptionTranslation.takumi_skins": "Shows the skins and capes Takumi Launcher players choose on the Takumi website or launcher, in any world or server. Only active when the game is started from Takumi Launcher.",
+  "takumi_skins.command.reloaded": "Takumi Skins: reloading everyone's skins.",
+  "takumi_skins.command.inactive": "Takumi Skins only works when the game is started from Takumi Launcher."
+}

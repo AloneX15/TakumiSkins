@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "id": "takumi_skins-test",
+  "version": "1.0.0",
+  "name": "Takumi Skins GameTests",
+  "environment": "*",
+  "entrypoints": {
+    "fabric-client-gametest": ["com.takumistudios.takumi_skins.test.TakumiSkinsClientGameTest"]
+  },
+  "depends": {
+    "takumi_skins": "*",
+    "fabric-gametest-api-v1": "*"
+  }
+}

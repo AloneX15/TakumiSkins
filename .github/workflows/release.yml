@@ -1,0 +1,88 @@
+name: Release
+
+# Al subir un tag vX.Y.Z: comprueba que coincide con mod.version, pasa toda la CI y crea una release de GitHub con los
+# jars, takumi-skins.json (el índice que usa Takumi Launcher para instalar el mod) y la sección del CHANGELOG.
+# El mod solo funciona desde Takumi Launcher, así que no se publica en Modrinth ni CurseForge.
+
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: write
+
+jobs:
+  prepare:
+    name: Check tag and changelog
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Tag must match mod.version
+        run: |
+          version="$(sed -n 's/^mod\.version *= *"\(.*\)".*/\1/p' stonecutter.properties.toml | head -1)"
+          if [ "$GITHUB_REF_NAME" != "v$version" ]; then
+            echo "::error::El tag $GITHUB_REF_NAME no coincide con mod.version ($version) de stonecutter.properties.toml"
+            exit 1
+          fi
+
+      - name: Extract release notes from CHANGELOG.md
+        run: |
+          # Toma la sección "## X.Y.Z ..." (o "## [X.Y.Z]") hasta el siguiente "## "
+          v="${GITHUB_REF_NAME#v}"
+          awk -v v="$v" '
+            /^## / { if (found) exit; if (index($0, "## " v) == 1 || index($0, "## [" v "]") == 1) { found = 1; next } }
+            found { print }
+          ' CHANGELOG.md > notes.md
+          if [ ! -s notes.md ]; then
+            echo "::warning::CHANGELOG.md no tiene sección para $v; se usan notas genéricas"
+            echo "Ver CHANGELOG.md." > notes.md
+          fi
+          { echo; echo "Creado por TakumiStudios."; } >> notes.md
+          cat notes.md
+
+      - uses: actions/upload-artifact@v7
+        with:
+          name: release-notes
+          path: notes.md
+
+  validate:
+    needs: prepare
+    uses: ./.github/workflows/build.yml
+
+  github-release:
+    name: GitHub release
+    needs: validate
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/download-artifact@v8
+        with:
+          pattern: takumi_skins-*
+          path: jars
+          merge-multiple: true
+
+      - uses: actions/download-artifact@v8
+        with:
+          name: release-notes
+
+      - name: Launcher index
+        run: node scripts/release-index.mjs jars "$GITHUB_REF_NAME" "$GITHUB_REPOSITORY" > takumi-skins.json
+
+      - name: Create release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          {
+            echo "Jars por cargador para Minecraft 1.21.1, 26.1.2, 26.2 y 26.3 (Fabric/Quilt, Forge, NeoForge). Takumi Launcher instala el que toca a cada instancia usando takumi-skins.json; fuera de Takumi Launcher el mod no hace nada."
+            echo
+            cat notes.md
+          } > body.md
+          prerelease=""
+          case "$GITHUB_REF_NAME" in *-*) prerelease="--prerelease" ;; esac
+          gh release create "$GITHUB_REF_NAME" jars/*.jar takumi-skins.json \
+            --title "Takumi Skins $GITHUB_REF_NAME" \
+            --notes-file body.md \
+            --verify-tag $prerelease

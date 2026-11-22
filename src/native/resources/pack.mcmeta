@@ -1,0 +1,9 @@
+{
+  "pack": {
+    "description": "Takumi Skins — Creado por TakumiStudios",
+    "pack_format": ${pack_resource},
+    "supported_formats": [${pack_resource}, ${pack_data}],
+    "min_format": [${pack_resource}, 0],
+    "max_format": [${pack_data}, ${pack_data_minor}]
+  }
+}

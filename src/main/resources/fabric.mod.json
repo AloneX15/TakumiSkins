@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "id": "${id}",
+  "version": "${version}",
+  "name": "${name}",
+  "description": "Shows the skins and capes Takumi Launcher players choose on the Takumi website or launcher, in any world or server. Only active when the game is started from Takumi Launcher.",
+  "authors": ["TakumiStudios"],
+  "contact": {
+    "homepage": "https://github.com/AloneX15/TakumiSkins",
+    "sources": "https://github.com/AloneX15/TakumiSkins",
+    "issues": "https://github.com/AloneX15/TakumiSkins/issues"
+  },
+  "license": "MIT",
+  "icon": "assets/takumi_skins/icon.png",
+  "environment": "client",
+  "entrypoints": {
+    "client": ["com.takumistudios.takumi_skins.fabric.FabricSkins"]
+  },
+  "depends": {
+    "fabricloader": ">=${loader}",
+    "minecraft": "${minecraft}",
+    "java": ">=${java}"
+  },
+  "mixins": ["takumi_skins.mixins.json"]
+}
