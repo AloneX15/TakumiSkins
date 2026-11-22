@@ -94,13 +94,16 @@ jobs:
       RUN_DIR: ${{ matrix.loader == 'fabric' && 'run' || format('versions/{0}-{1}/run', matrix.minecraft, matrix.loader) }}
     steps:
       - uses: actions/checkout@v7
+      # JDK 8: ForgeGradle lo usa para preparar Minecraft (lo busca en JAVA_HOME_8_X64). Zulu porque el Temurin 8u514
+      # que descargaría falla la verificación de checksum (22-11-2026). Va antes para que JAVA_HOME acabe en el 25.
+      - uses: actions/setup-java@v6
+        with:
+          distribution: zulu
+          java-version: 8
       - uses: actions/setup-java@v6
         with:
           distribution: temurin
-          # 8: ForgeGradle lo usa para preparar Minecraft (lo busca en JAVA_HOME_8_X64); si tiene que descargarlo, a veces
-          # falla. El último de la lista (25) queda como JAVA_HOME.
           java-version: |
-            8
             21
             25
       - uses: gradle/actions/setup-gradle@v6
