@@ -62,9 +62,10 @@ Notas:
    como cualquier otra. Las texturas son `DynamicTexture` normales del `TextureManager`
    (`takumi_skins:skins/<sha256>`), sin mapas PBR (`_n`/`_s`): los shaderpacks con PBR usan sus valores por defecto,
    igual que con las skins de Mojang.
-4. La CI ejecuta los tests de cliente con renderizado por software (Mesa). Los shaders del pack de prueba son mínimos
-   (GLSL 120, solo programas `gbuffers`) para que funcionen ahí; los shaderpacks reales (BSL, Complementary…) solo se
-   pueden probar a mano con GPU.
+4. La CI ejecuta los tests de cliente con renderizado por software (Mesa llvmpipe en Xvfb). Iris necesita OpenGL y en
+   26.3 el selector GLX de SDL3 no encuentra visual en Xvfb (sin Iris, el juego pasa a Vulkan): en esa variante la CI
+   crea el contexto por EGL (`SDL_VIDEO_FORCE_EGL=1`) y obtiene OpenGL 4.5. Los shaders del pack de prueba son mínimos
+   (GLSL 120, solo programas `gbuffers`); los shaderpacks reales (BSL, Complementary…) se prueban a mano con GPU.
 
 ## OptiFine
 
